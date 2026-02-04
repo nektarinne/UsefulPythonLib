@@ -10,6 +10,7 @@ UsefulPythonLib/
 ├── README.md # This README file
 ├── progress_bar.py # A simple progress bar utility
 ├── ebook.py # Create EPUB from chapters
+├── steno.py # Encode/decode text to/from image
 ├── another_useful_script.py # More useful scripts to come!
 ```
 
@@ -120,5 +121,43 @@ create_epub(title, author, filename, chapters)
 EPUB file "my_ebook.epub" has been created successfully!
 ```
 
+## steno.py (text saved into image)
 
+This script allows you to save a text in the pixels of an image, then read it back.
 
+### 📦 Dependencies
+Before using this script, ensure you have the pillow package installed. You can install it using pip:
+
+```bash
+pip install pillow
+```
+
+### 📖 encode() Function
+```python
+encode(text: str, base_image: str = "image.jpg", encoded_image: str = "encoded.jpg") -> None
+```
+
+### 📖 decode() Function
+```python
+decode(encoded_image: str = "encoded.jpg") -> str
+```
+
+### 📌 Example Usage:
+```python
+from steno import encode, decode
+
+text = "This is a test message"
+encode(text=text, base_image="image.jpg", encoded_image="encoded.jpg")
+decoded = decode(encoded_image="encoded.jpg")
+print(f"Decoded: '{decoded}'")
+```
+
+This will copy the `image.jpg` into `encoded.jpg` with the message inside, then decode the message from the encoded image.
+
+### 📊 Output:
+```
+Encoding 'This is a test message'
+Encoding text             | 100% | ██████████████████████████████████████████████████ | N/A
+Decoding image            | 100% | ██████████████████████████████████████████████████ | N/A
+Decoded: 'This is a test message'
+```
