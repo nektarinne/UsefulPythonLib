@@ -1,8 +1,8 @@
 from datetime import datetime
 from time import sleep
 
-progressPreviousCall = -1
-progressNumberOfCall = 0
+_progressPreviousCall = None
+_progressNumberOfCall = 0
 
 
 def progressReset():
@@ -12,9 +12,9 @@ def progressReset():
     This function should be called before starting a new progress tracking 
     sequence to ensure accurate progress calculations.
     """
-    global progressPreviousCall, progressNumberOfCall
-    progressPreviousCall = -1
-    progressNumberOfCall = 0
+    global _progressPreviousCall, _progressNumberOfCall
+    _progressPreviousCall = None
+    _progressNumberOfCall = 0
 
 
 def progress(numberOfCalls: int, message: str = "Progress"):
@@ -38,16 +38,16 @@ def progress(numberOfCalls: int, message: str = "Progress"):
         >>>     progress(100, message="Processing")
         >>>     sleep(0.1)
     """
-    global progressPreviousCall, progressNumberOfCall
-    progressNumberOfCall += 1
+    global _progressPreviousCall, _progressNumberOfCall
+    _progressNumberOfCall += 1
     now = datetime.now()
 
     # Calculate percentage of progress
-    percentage = int(progressNumberOfCall / numberOfCalls * 100)
+    percentage = int(_progressNumberOfCall / numberOfCalls * 100)
     percentage_str = f"{percentage}%"
 
     # Generate the progress bar visualization (max length: 50)
-    per50 = int(progressNumberOfCall / numberOfCalls * 50)
+    per50 = int(_progressNumberOfCall / numberOfCalls * 50)
     progressBar = "█" * per50
 
     # Truncate message if it exceeds the maximum length of 25 characters
@@ -56,9 +56,9 @@ def progress(numberOfCalls: int, message: str = "Progress"):
 
     # Estimate Time Remaining (ETA) calculation
     eta = "N/A"
-    if progressPreviousCall != -1 and progressNumberOfCall != numberOfCalls:
-        timeSinceLastCall = now - progressPreviousCall
-        eta_duration = timeSinceLastCall * (numberOfCalls - progressNumberOfCall)
+    if _progressPreviousCall != None and _progressNumberOfCall != numberOfCalls:
+        timeSinceLastCall = now - _progressPreviousCall
+        eta_duration = timeSinceLastCall * (numberOfCalls - _progressNumberOfCall)
         seconds = eta_duration.seconds
         minutes = seconds // 60
         milliseconds = int(eta_duration.microseconds / 1000)
@@ -78,7 +78,7 @@ def progress(numberOfCalls: int, message: str = "Progress"):
             eta = str(eta_duration)
 
     # Update the time of the previous call for ETA calculation
-    progressPreviousCall = now
+    _progressPreviousCall = now
 
     # Print progress bar
     print(f"{message:<25} | {percentage_str:<4} | {progressBar:<50} | {eta:<20}", end="\r")

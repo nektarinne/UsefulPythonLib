@@ -19,8 +19,7 @@ Simply clone the repository to your local machine:
 git clone https://github.com/nektarinne/UsefulPythonLib.git
 ```
 
-## 📌 Available Scripts
-1. progress_bar.py (Progress Bar Utility)
+## progress_bar.py (Progress Bar Utility)
 
 This script provides a simple, customizable progress bar for tracking progress in the terminal.
 
@@ -68,22 +67,26 @@ for i in range(100):
 print()  # Move to the next line after progress bar completion
 
 ```
+
 ### 📊 Output Example
 ```
 Short Process           | 100% | ██████████████████████████████████████████████████ | N/A
 A longer process wit... | 54%  | ██████████████████████████████████████████████████ | 4s
 ```
 
-2. ebook.py (Epub creator)
 
-## 📦 Dependencies
+## ebook.py (Epub creator)
+
+This script allows you to generate EPUB files easily by providing a book title, author, and a structured list of chapters.
+
+### 📦 Dependencies
 Before using this script, ensure you have the ebooklib package installed. You can install it using pip:
 
 ```bash
 pip install ebooklib
 ```
 
-### create_epub() Function
+### 📖 create_epub() Function
 ```python
 create_epub(title: str, author: str, filename: str, chapters: list[tuple[str, str]]) -> None
 ```
@@ -113,10 +116,9 @@ create_epub(title, author, filename, chapters)
 ```
 
 ### 📊 Output:
-```nginx
+```
 EPUB file "my_ebook.epub" has been created successfully!
 ```
-This script allows you to generate EPUB files easily by providing a book title, author, and a structured list of chapters.
 
 
 
